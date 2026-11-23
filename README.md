@@ -42,6 +42,15 @@ Use a running Omarchy desktop with Quickshell plugins. The bundle was prepared f
 
 The timer saves your settings on your computer. The bundled rain sound works offline.
 
+### Use your own rain sound
+
+If you have a local copy of the audio you want to use, save it as
+`~/.config/omarchy/pomodoro-rain.m4a`. The timer will try that file first and
+use the included rain sound if the file is missing or cannot play. If you set
+`XDG_CONFIG_HOME`, use its `omarchy` folder instead.
+
+The original setup used the audio from [this study video on YouTube](https://youtu.be/Qo7N-HbEMxE).
+
 ## Want the shared top-bar layout too?
 
 Open a terminal in the same folder and run:

@@ -31,7 +31,8 @@ Item {
       "mpv", "--no-config", "--no-video", "--no-terminal",
       "--audio-client-name=Pomodoro rain", "--loop-file=inf", "--ytdl=no",
       "--input-ipc-server=" + root.socketPath, "--volume=" + root.volume,
-      "--", Qt.resolvedUrl("rain.ogg").toString()
+      "--", Qt.resolvedUrl("../../pomodoro-rain.m4a").toString(),
+      Qt.resolvedUrl("rain.ogg").toString()
     ]
     onExited: exitCode => {
       if (root.play && exitCode !== 0)
