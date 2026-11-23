@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "local.pomodoro",
+  "name": "Pomodoro",
+  "version": "1.0.0",
+  "description": "Adjustable focus and break countdowns with rain audio and an end alarm.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Pomodoro.qml"
+  },
+  "barWidget": {
+    "displayName": "Pomodoro",
+    "description": "Hover to adjust durations and sound. Left click to start or pause, right click to switch, middle click to reset.",
+    "category": "Status",
+    "allowMultiple": false,
+    "defaultSection": "centerBegin"
+  }
+}

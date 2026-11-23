@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "local.desktop-widgets",
+  "name": "Desktop Widgets",
+  "version": "1.0.0",
+  "description": "A desktop clock and monthly calendar.",
+  "kinds": ["service"],
+  "entryPoints": {"service": "Desktop.qml"}
+}

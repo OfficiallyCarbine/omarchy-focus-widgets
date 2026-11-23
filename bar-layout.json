@@ -1,0 +1,12 @@
+{
+  "position": "top",
+  "background": "glassy",
+  "layout": {
+    "left": ["omarchy.menu", "omarchy.workspaces"],
+    "centerBegin": ["omarchy.indicators"],
+    "center": ["omarchy.clock"],
+    "centerEnd": ["local.pomodoro", "omarchy.elsewhen", "omarchy.weather", "omarchy.system-update"],
+    "right": ["omarchy.tray", "omarchy.keyboard-layout", "omarchy.agents", "omarchy.bluetooth",
+              "omarchy.network", "omarchy.audio", "omarchy.monitor", "omarchy.power"]
+  }
+}
