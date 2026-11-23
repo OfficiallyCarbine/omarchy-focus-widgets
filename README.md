@@ -9,6 +9,16 @@ Focus Widgets adds a timer to the top of your screen and puts a few helpful card
 - **Rain sound and a chime.** Play gentle rain while you work, adjust its volume, or turn it off. An optional chime tells you when time is up.
 - **Desktop cards.** See the time, calendar, quote of the day, and how long you've focused today and this month.
 
+## What it looks like
+
+**Pomodoro timer** · Hover over the timer beside the clock to open these controls.
+
+![The Pomodoro panel with timer buttons, duration settings, and rain volume](screenshots/panel.png)
+
+**Desktop widgets** · The clock and calendar sit on the desktop, above the focus totals and daily quote.
+
+![The desktop clock and monthly calendar with today's date highlighted](screenshots/desktop.png)
+
 ## How to install
 
 1. On this GitHub page, click **Code**, then **Download ZIP**.
