@@ -1,6 +1,8 @@
 import QtQuick
+import QtCore
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import qs.Commons
 import "Quotes.js" as Quotes
@@ -8,6 +10,28 @@ import "Quotes.js" as Quotes
 Item {
   id: root
   property date now: new Date()
+
+  readonly property bool desktopVisible: {
+    const monitor = Hyprland.focusedMonitor
+    const workspace = monitor?.activeWorkspace
+    if (!workspace || monitor.lastIpcObject.dpmsStatus === false ||
+        (monitor.lastIpcObject.specialWorkspace?.id ?? 0) !== 0)
+      return false
+
+    return !Hyprland.toplevels.values.some(window => {
+      const info = window.lastIpcObject
+      if (info.mapped === false || info.hidden === true || window.wayland?.minimized === true)
+        return false
+      return window.workspace?.id === workspace.id ||
+        (info.pinned === true && window.monitor?.id === monitor.id)
+    })
+  }
+
+  Slides {
+    id: photoSlides
+    canRotate: root.desktopVisible
+    folder: StandardPaths.writableLocation(StandardPaths.DownloadLocation) + "/Slideshow"
+  }
   readonly property var locale: Qt.locale(I18n.formatLocale)
   readonly property int today: now.getDate()
   readonly property int firstWeekday: new Date(now.getFullYear(), now.getMonth(), 1).getDay()
@@ -18,7 +42,16 @@ Item {
   readonly property int quoteDay: Math.floor(Date.UTC(now.getFullYear(),
     now.getMonth(), now.getDate()) / 86400000)
   readonly property string monthKey: now.getFullYear() + "-" + (now.getMonth() + 1) + "-"
-  readonly property var dailyFocus: totals.dailyMilliseconds ?? ({})
+  readonly property var dailyFocus: {
+    const content = totalsFile.text()
+    if (!content) return ({})
+    try {
+      return JSON.parse(content).dailyMilliseconds ?? ({})
+    } catch (error) {
+      console.warn("Could not read focus totals:", error)
+      return ({})
+    }
+  }
   readonly property double todayFocus: dailyFocus[monthKey + today] || 0
   readonly property double monthFocus: Object.keys(dailyFocus)
     .filter(key => key.startsWith(monthKey))
@@ -42,12 +75,6 @@ Item {
     path: Qt.resolvedUrl("../../pomodoro-totals.json")
     watchChanges: true
     onFileChanged: reload()
-    Component.onCompleted: totalsFile.text()
-
-    JsonAdapter {
-      id: totals
-      property var dailyMilliseconds: ({})
-    }
   }
 
   Timer {
@@ -104,12 +131,14 @@ Item {
     model: Quickshell.screens
 
     PanelWindow {
+      id: panel
       required property var modelData
+      readonly property real cardScale: Math.min(1, (screen.height - 108) / cards.height)
       screen: modelData
       anchors { top: true; right: true }
       margins { top: 64; right: 34 }
-      implicitWidth: cards.width
-      implicitHeight: cards.height
+      implicitWidth: Math.ceil(cards.width * cardScale)
+      implicitHeight: Math.ceil(cards.height * cardScale)
       color: "transparent"
       exclusionMode: ExclusionMode.Ignore
       mask: Region {}
@@ -120,6 +149,8 @@ Item {
       Column {
         id: cards
         spacing: 12
+        scale: panel.cardScale
+        transformOrigin: Item.TopLeft
         LayoutMirroring.enabled: I18n.rightToLeft
         LayoutMirroring.childrenInherit: true
 
@@ -239,6 +270,12 @@ Item {
               text: Quotes.entries[root.quoteDay % Quotes.entries.length]
             }
           }
+        }
+
+        PhotoCollage {
+          width: 278
+          height: width
+          slideshow: photoSlides
         }
       }
     }

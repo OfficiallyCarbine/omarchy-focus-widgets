@@ -38,6 +38,12 @@ for id in "${plugins[@]}"; do
 done
 
 mkdir -p "$config_dir/plugins"
+downloads="$HOME/Downloads"
+if command -v xdg-user-dir >/dev/null; then
+  configured_downloads=$(xdg-user-dir DOWNLOAD)
+  if [[ -n $configured_downloads ]]; then downloads=$configured_downloads; fi
+fi
+mkdir -p -- "$downloads/Slideshow"
 if [[ -f $config_dir/shell.json ]]; then
   backup=$(mktemp "$config_dir/shell.json.focus-widgets.XXXXXX")
   cp -p -- "$config_dir/shell.json" "$backup"

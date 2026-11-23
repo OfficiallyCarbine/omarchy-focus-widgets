@@ -7,7 +7,7 @@ Focus Widgets adds a timer to the top of your screen and puts a few helpful card
 - **Focus timer.** Pick how long you want to work and how long you want to rest. One work timer is called a Pomodoro.
 - **Timer buttons.** Hover over the timer to find **Start**, **Pause**, **Stop**, **Reset**, and **Skip**. If you're on a break and ready to work again, click **Skip**.
 - **Rain sound and a chime.** Play gentle rain while you work, adjust its volume, or turn it off. An optional chime tells you when time is up.
-- **Desktop cards.** See the time, calendar, quote of the day, and how long you've focused today and this month.
+- **Desktop cards.** See the time, calendar, quote of the day, how long you’ve focused today and this month, and a slideshow for your own pictures.
 
 ## What it looks like
 
@@ -29,6 +29,10 @@ Focus Widgets adds a timer to the top of your screen and puts a few helpful card
 
 ![The desktop clock and monthly calendar with today's date highlighted](screenshots/desktop.png)
 
+**Photo slideshow** · Two frames from the same slideshow. The screenshot uses sample pictures.
+
+![Rounded photo frame below Quote of the Day, shown with a different sample picture in each view](screenshots/photo-slideshow.webp)
+
 ## How to install
 
 1. On this GitHub page, click **Code**, then **Download ZIP**.
@@ -42,6 +46,14 @@ Focus Widgets adds a timer to the top of your screen and puts a few helpful card
 4. Look near the clock at the top of your screen for the timer. Look at your desktop to see the cards.
 
 Use a running Omarchy desktop with Quickshell plugins. The bundle was prepared for Omarchy 4.5.0-3. You can use it without an administrator password. Rain playback uses `mpv`. The chime uses `paplay`.
+
+## Show your own pictures
+
+1. Open **Downloads**, then open the **Slideshow** folder.
+2. Drop a few JPG, PNG, or WebP pictures into it.
+3. Go to an empty workspace. The rounded frame below **Quote of the Day** shows one picture at a time and changes every **8 seconds**.
+
+The timer for the next picture pauses while an app window is open on your current workspace. Your pictures stay on your computer.
 
 ## Try your first session
 
