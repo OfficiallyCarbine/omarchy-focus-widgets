@@ -50,7 +50,9 @@ Use a running Omarchy desktop with Quickshell plugins. The bundle was prepared f
 3. Click **Start** and work on one task.
 4. When the timer ends, click **Start** for your break. Click **Skip** if you'd rather go straight to the next focus session.
 
-The timer saves your settings on your computer. The bundled rain sound works offline.
+The timer saves your settings on your computer. The installer downloads the full rain track from the [original study video](https://youtu.be/Qo7N-HbEMxE) (223 MiB). Once downloaded, it plays offline. If the download fails, the timer uses the smaller rain sound included in the ZIP.
+
+To skip the large download, run `bash install.sh --no-audio-download`.
 
 ### Use your own rain sound
 
@@ -59,7 +61,7 @@ If you have a local copy of the audio you want to use, save it as
 use the included rain sound if the file is missing or cannot play. If you set
 `XDG_CONFIG_HOME`, use its `omarchy` folder instead.
 
-The original setup used the audio from [this study video on YouTube](https://youtu.be/Qo7N-HbEMxE).
+You can also [download the original track directly](https://github.com/OfficiallyCarbine/omarchy-focus-widgets/releases/download/v1.0.0/pomodoro-rain.m4a).
 
 ## Want the shared top-bar layout too?
 

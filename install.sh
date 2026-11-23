@@ -4,13 +4,20 @@ set -euo pipefail
 source_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/omarchy"
 
-case "${1:-}" in
-  "") apply_layout=false ;;
-  --bar-layout) apply_layout=true ;;
-  --help|-h) echo "Usage: ./install.sh [--bar-layout]"; exit 0 ;;
-  *) echo "Usage: ./install.sh [--bar-layout]" >&2; exit 2 ;;
-esac
-(( $# <= 1 )) || exit 2
+usage() {
+  echo "Usage: ./install.sh [--bar-layout] [--no-audio-download]"
+}
+
+apply_layout=false
+download_audio=true
+for option in "$@"; do
+  case "$option" in
+    --bar-layout) apply_layout=true ;;
+    --no-audio-download) download_audio=false ;;
+    --help|-h) usage; exit 0 ;;
+    *) usage >&2; exit 2 ;;
+  esac
+done
 
 for tool in omarchy omarchy-shell jq; do
   command -v "$tool" >/dev/null || { echo "Missing required command $tool" >&2; exit 1; }
@@ -94,6 +101,37 @@ if $apply_layout; then
   done < <(jq -r '.layout | to_entries[] | .key as $section |
     .value | to_entries[] | [$section, .key, .value] | @tsv' "$layout")
 fi
+
+install_rain_audio() (
+  track="$config_dir/pomodoro-rain.m4a"
+  if [[ -e $track || -L $track ]]; then return 0; fi
+
+  for tool in curl sha256sum; do
+    if ! command -v "$tool" >/dev/null; then
+      echo "Missing $tool. The timer will use the included rain sound." >&2
+      return 0
+    fi
+  done
+
+  url="https://github.com/OfficiallyCarbine/omarchy-focus-widgets/releases/download/v1.0.0/pomodoro-rain.m4a"
+  checksum="7dd37cc5475cd5953503fb17b0f1cabac60d2f13d1156f5481fc68d1c47c7d12"
+  temp=$(mktemp "$config_dir/.pomodoro-rain.XXXXXX")
+  trap 'rm -f -- "$temp"' EXIT
+
+  echo "Downloading the original rain track (223 MiB)..."
+  if curl --fail --location --retry 2 --connect-timeout 10 --output "$temp" "$url" &&
+    printf '%s  %s\n' "$checksum" "$temp" | sha256sum --check --status; then
+    if ln -- "$temp" "$track"; then
+      echo "Installed the original rain track."
+    elif [[ ! -e $track && ! -L $track ]]; then
+      echo "Could not save the rain track. The timer will use the included rain sound." >&2
+    fi
+  else
+    echo "Could not download or verify the rain track. The timer will use the included rain sound." >&2
+  fi
+)
+
+if $download_audio; then install_rain_audio; fi
 
 for tool in mpv paplay; do
   if ! command -v "$tool" >/dev/null; then
