@@ -11,6 +11,16 @@ Focus Widgets adds a timer to the top of your screen and puts a few helpful card
 
 ## What it looks like
 
+**The whole desktop** · The timer sits beside the clock in the top bar. The desktop cards sit along the right edge.
+
+![Full Omarchy desktop showing the top bar, clock, calendar, two focus totals, and daily quote](screenshots/overview.webp)
+
+[See the whole desktop with the timer panel open](screenshots/overview-panel.webp).
+
+**Focus totals** · See how much time you've focused today and this month. These pictures use example totals.
+
+![Focus time today and focus time this month shown on two desktop cards](screenshots/focus-totals.png)
+
 **Pomodoro timer** · Hover over the timer beside the clock to open these controls.
 
 ![The Pomodoro panel with timer buttons, duration settings, and rain volume](screenshots/panel.png)
